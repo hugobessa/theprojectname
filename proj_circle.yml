@@ -4,19 +4,24 @@ machine:  # remeber to update those!
   node:
     version: 6.1.0
 
+dependencies:
+  post:
+    - pip install pipenv
+
 test:
   override:
     - npm install
     - npm run build
+    - pipenv install
     # style check
-    - prospector
+    - pipenv run prospector
     # security checks
-    - bandit -r .
+    - pipenv run bandit -r .
     - pipenv run pip freeze | safety check --stdin
     # imports check
-    - isort **/*.py --check-only
+    - pipenv run isort **/*.py --check-only
     # pre-commit additional checks
-    - SKIP=prospector,isort pre-commit run --all-files
+    - SKIP=prospector,isort pipenv run pre-commit run --all-files
     - >
         DJANGO_SETTINGS_MODULE=theprojectname.settings.local
             pipenv run python manage.py has_missing_migrations --ignore authtools;

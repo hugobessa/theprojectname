@@ -12,7 +12,7 @@ test:
   override:
     - npm install
     - npm run build
-    - pipenv install
+    - pipenv install --dev
     # style check
     - prospector
     # security checks
@@ -26,6 +26,7 @@ test:
         DJANGO_SETTINGS_MODULE=theprojectname.settings.local
             python manage.py has_missing_migrations --ignore authtools;
     - >
+        DJANGO_SETTINGS_MODULE=theprojectname.settings.production
         SECRET_KEY=$(python -c 'import uuid; print(uuid.uuid4().hex + uuid.uuid4().hex)')
         DATABASE_URL='sqlite:///'
         ALLOWED_HOSTS='.example.org'

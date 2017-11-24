@@ -11,6 +11,7 @@ django-debug-toolbar-request-history = "*"
 django-naomi = "*"
 fixmydjango = "*"
 model-mommy = "*"
+pre_commit = "*"
 
 
 
@@ -33,7 +34,6 @@ whitenoise = "*"
 bandit = "*"
 coverage = "*"
 prospector = {extras = ["with-vulture"]}
-pre_commit = "*"
 isort = "*"
 safety = "*"
 ipython = "*"

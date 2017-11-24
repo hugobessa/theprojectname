@@ -23,16 +23,16 @@ test:
     # pre-commit additional checks
     - SKIP=prospector,isort pipenv run pre-commit run --all-files
     - >
-        DJANGO_SETTINGS_MODULE=theprojectname.settings.local
-            pipenv run python manage.py has_missing_migrations --ignore authtools;
+        pipenv run DJANGO_SETTINGS_MODULE=theprojectname.settings.local
+            python manage.py has_missing_migrations --ignore authtools;
     - >
         SECRET_KEY=$(python -c 'import uuid; print(uuid.uuid4().hex + uuid.uuid4().hex)')
         DATABASE_URL='sqlite:///'
         ALLOWED_HOSTS='.example.org'
         SENDGRID_USERNAME='test'
         SENDGRID_PASSWORD='test'
-        REDIS_URL='redis://'
-            pipenv run python manage.py check --deploy --settings=theprojectname.settings.production
+        pipenv run REDIS_URL='redis://'
+            python manage.py check --deploy --settings=theprojectname.settings.production
     - pipenv run coverage run manage.py test
     - npm run lint
   post:

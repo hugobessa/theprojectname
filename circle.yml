@@ -14,16 +14,16 @@ test:
     - npm run build
     - pipenv install
     # style check
-    - pipenv run prospector
+    - prospector
     # security checks
-    - pipenv run bandit -r .
-    - pipenv run pip freeze | safety check --stdin
+    - bandit -r .
+    - pip freeze | safety check --stdin
     # imports check
-    - pipenv run isort **/*.py --check-only
+    - isort **/*.py --check-only
     # pre-commit additional checks
-    - SKIP=prospector,isort pipenv run pre-commit run --all-files
+    - SKIP=prospector,isort pre-commit run --all-files
     - >
-        pipenv run DJANGO_SETTINGS_MODULE=theprojectname.settings.local
+        DJANGO_SETTINGS_MODULE=theprojectname.settings.local
             python manage.py has_missing_migrations --ignore authtools;
     - >
         SECRET_KEY=$(python -c 'import uuid; print(uuid.uuid4().hex + uuid.uuid4().hex)')
@@ -31,12 +31,12 @@ test:
         ALLOWED_HOSTS='.example.org'
         SENDGRID_USERNAME='test'
         SENDGRID_PASSWORD='test'
-        pipenv run REDIS_URL='redis://'
+        REDIS_URL='redis://'
             python manage.py check --deploy --settings=theprojectname.settings.production
-    - pipenv run coverage run manage.py test
+    - coverage run manage.py test
     - npm run lint
   post:
-    - pipenv run coverage html -d $CIRCLE_ARTIFACTS
+    - coverage html -d $CIRCLE_ARTIFACTS
 
 # This is necessary for the boilerplate's CI. You can remove these lines
 general:

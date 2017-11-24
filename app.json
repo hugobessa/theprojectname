@@ -61,7 +61,7 @@
       "url": "heroku/nodejs"
     },
     {
-      "url": "https://github.com/jacebrowning/heroku-buildpack-pipenv.git"
+      "url": "heroku/python"
     }
   ]
 }
